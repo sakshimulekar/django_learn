@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Menu Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            width: 300px;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        button {
+            display: block;
+            margin: auto;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        .checkbox{
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+        }
+        .check {
+            width: 30px; /* Increase the checkbox size */
+            height: 30px; /* Increase the checkbox size */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Menu Item</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="{{ item.name }}">
+            <label for="price">Price:</label>
+            <input type="number" name="price" value="{{ item.price }}">
+            <div class="checkbox">
+                <label for="available">Availability:</label>
+                <input class="check" type="checkbox" name="available" {% if item.available %}checked{% endif %}>
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

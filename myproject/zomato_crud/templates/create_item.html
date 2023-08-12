@@ -1,0 +1,93 @@
+<!-- create_item.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        input[type="text"], input[type="url"], input[type="number"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="checkbox"]{
+            width: 20px;
+            height: 20px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .btn{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create Item</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <label for="{{ form.name.id_for_label }}">Name:</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+            
+            <label for="{{ form.image.id_for_label }}">Image URL:</label>
+            {{ form.image }}
+            {{ form.image.errors }}
+            
+            <label for="{{ form.price.id_for_label }}">Price:</label>
+            {{ form.price }}
+            {{ form.price.errors }}
+            
+            <div class="btn">
+            <label for="{{ form.available.id_for_label }}">Available:</label>
+            {{ form.available }}
+            {{ form.available.errors }}
+        </div>
+            
+            <button type="submit">Create</button>
+        </form>
+    </div>
+</body>
+</html>

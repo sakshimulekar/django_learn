@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zomato Chronicles - Menu List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .main {
+            width: 80%;
+            margin: auto;
+        }
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .menu-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .menu-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .menu-item h3 {
+            margin-top: 10px;
+            font-size: 1.25rem;
+        }
+        .menu-item p {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+        h1 {
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 20px 0;
+        }
+        .menu-item .availability {
+            font-weight: bold;
+        }
+        /* Styling availability status */
+        .menu-item .availability.available {
+            color: #4CAF50; /* Green for available */
+        }
+        .menu-item .availability.not-available {
+            color: #FF5733; /* Red for not available */
+        }
+        .btn{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button a{
+            text-decoration: none;
+            color: white;
+            font-size: 15px;
+        }
+        button {
+            display: block;
+            margin: auto;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .dlt-button{
+            background-color: #FF5733;
+            color: white;
+        }
+        .create{
+            background-color: #6405e1;
+            font-size: larger;
+        }
+        /* Media Queries */
+        @media screen and (max-width: 1024px) {
+            .main {
+                width: 90%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Welcome to Zomato Chronicles</h1>
+        <button class="create">
+            <a href="{% url 'create_item' %}">Create Item</a>
+        </button>
+        <br>
+        <br>
+        <div class="menu-container">
+            {% for item in menu %}
+                <div class="menu-item">
+                    <img src="{{ item.image }}" alt="{{ item.name }}">
+                    <h3>{{ item.name }}</h3>
+                    <p>Price: ${{ item.price }}</p>
+                    <p class="availability {% if item.available %}available{% else %}not-available{% endif %}">
+                        Available: {% if item.available %}Available{% else %}Not Available{% endif %}
+                    </p>
+                    <div class="btn">
+                        <button>
+                        <a href="{% url 'edit_item' item_id=item.id %}" class="edit-button">Edit</a>
+                        </button>
+                        <button class="dlt-button">
+                            <a href="{% url 'del_item' item_id=item.id %}" >Delete</a>
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+            <br>
+            <br>
+            
+            
+        </div>
+    </div>
+</body>
+</html>
