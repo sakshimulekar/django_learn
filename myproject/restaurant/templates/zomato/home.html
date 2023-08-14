@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato Zesty</title>
+    <!-- Add your CSS links for styling here -->
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <div class="navbar-left">
+                <a href="#"><img src="{% static 'media:zomato_logo.png' %}" alt="Zomato Logo"></a>
+            </div>
+            <div class="navbar-right">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'restaurant:logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'restaurant:login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-list">
+        <!-- Add your menu list here -->
+        <!-- {% for dish in dishes %}
+            <div class="menu-item">
+                <h3>{{ dish.dish_name }}</h3>
+                <p>Price: ${{ dish.price }}</p>
+            </div>
+        {% endfor %} -->
+    </div>
+
+    <!-- Add your additional content here -->
+
+    <!-- Add your JavaScript scripts here -->
+</body>
+</html>

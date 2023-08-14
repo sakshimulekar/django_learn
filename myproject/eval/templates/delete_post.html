@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>delete post</h1>
+    <p>are you sure to delete post ?</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit">Yes,delete</button>
+        <a href="{% url 'view_posts' %}">Cancel</a>
+    </form>
+</body>
+</html>

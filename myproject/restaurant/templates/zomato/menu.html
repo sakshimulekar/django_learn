@@ -1,0 +1,142 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Zomato Menu</title>
+    <style>
+        .menu-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 300px;
+        }
+        .menu-card img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zomato Menu</h1>
+    
+
+    <div class="menu-container">
+        {% for dish in dishes %}
+            <div class="menu-card">
+                <h2>{{ dish.dishName }}</h2>
+                <img src="{{ dish.image.url }}" alt="{{ dish.dishName }}">
+                <p>Price: ${{ dish.price }}</p>
+                <p>{% if dish.available %}Available{% else %}Not Available{% endif %}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zomato Menu</title>
+    <style>
+        .menu-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 300px;
+        }
+        .menu-card img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zomato Menu</h1>
+
+    <div class="menu-container" >
+        {% if request.user.is_staff %}
+        <a href="{% url 'restaurant:create_dish' %}">Create New Dish</a>
+            <!-- Display full menu for staff members -->
+            {% for dish in dishes %}
+                <div class="menu-card">
+                    <h2>{{ dish.dishName }}</h2>
+                    <img src="{{ dish.image.url }}" alt="{{ dish.dishName }}">
+                    <p>Price: ${{ dish.price }}</p>
+                    <p>{% if dish.available %}Available{% else %}Not Available{% endif %}</p>
+                    <a href="{% url 'restaurant:edit_dish' dish.id %}"><button>Edit</button></a>
+                    <form method="post" action="{% url 'restaurant:delete_dish' dish.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <!-- Display limited menu for customers -->
+            {% for dish in dishes %}
+                {% if not dish.is_hidden %}
+                    <div class="menu-card">
+                        <h2>{{ dish.dishName }}</h2>
+                        <img src="{{ dish.image.url }}" alt="{{ dish.dishName }}">
+                        <p>Price: ${{ dish.price }}</p>
+                        <p>{% if dish.available %}Available{% else %}Not Available{% endif %}</p>
+                        <a href="{% url 'restaurant:place_order' dish.id %}"><button>Place order</button></a>
+                        
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+<!-- code for reference -->
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Zomato Menu</title>
+    <style>
+        .menu-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 300px;
+        }
+        .menu-card img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zomato Menu</h1>
+
+    <div class="menu-container">
+        {% for dish in dishes %}
+            <div class="menu-card">
+                <h2>{{ dish.dishName }}</h2>
+                <img src="{{ dish.image.url }}" alt="{{ dish.dishName }}">
+                <p>Price: ${{ dish.price }}</p>
+                <p>{% if dish.available %}Available{% else %}Not Available{% endif %}</p>
+                
+                {% if request.user.is_staff %}
+                    <a href="{% url 'restaurant:edit_dish' dish.id %}">Edit</a>
+                    <form method="post" action="{% url 'restaurant:delete_dish' dish.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                {% endif %}
+                
+                {% if not dish.is_hidden and not request.user.is_staff %}
+                    <form method="post" action="{% url 'restaurant:place_order' dish.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Place Order</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html> -->
